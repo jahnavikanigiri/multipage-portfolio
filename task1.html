@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- =========================
+         BASIC META TAGS
+    ========================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>John Doe | Accessible Portfolio</title>
+
+    <meta name="description"
+        content="Accessible and semantic personal portfolio website built using HTML5, CSS3 and JavaScript following WCAG guidelines.">
+
+    <meta name="keywords"
+        content="portfolio, HTML5, CSS3, JavaScript, accessibility, WCAG, semantic website">
+
+    <meta name="author" content="John Doe">
+    <meta name="robots" content="index, follow">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="John Doe Portfolio">
+    <meta property="og:description"
+        content="Accessible semantic portfolio website with HTML5, CSS3 and JavaScript.">
+    <meta property="og:type" content="website">
+
+    <!-- =========================
+         CSS START
+    ========================== -->
+    <style>
+
+        /* RESET */
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            font-family:Arial, Helvetica, sans-serif;
+            line-height:1.7;
+            background:#f8fafc;
+            color:#1e293b;
+        }
+
+        img{
+            max-width:100%;
+            display:block;
+        }
+
+        a{
+            text-decoration:none;
+        }
+
+        ul{
+            list-style:none;
+        }
+
+        /* SKIP LINK */
+        .skip-link{
+            position:absolute;
+            top:-50px;
+            left:10px;
+            background:#000;
+            color:#fff;
+            padding:10px 15px;
+            z-index:1000;
+            border-radius:5px;
+        }
+
+        .skip-link:focus{
+            top:10px;
+        }
+
+        /* FOCUS STYLES */
+        a:focus,
+        button:focus,
+        input:focus,
+        textarea:focus{
+            outline:3px solid #f59e0b;
+            outline-offset:3px;
+        }
+
+        /* CONTAINER */
+        .container{
+            width:90%;
+            max-width:1100px;
+            margin:auto;
+        }
+
+        /* HEADER */
+        header{
+            background:#0f172a;
+            color:white;
+            padding:20px 0;
+            position:sticky;
+            top:0;
+            z-index:100;
+        }
+
+        .header-content{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:20px;
+        }
+
+        .logo{
+            font-size:1.8rem;
+            font-weight:bold;
+        }
+
+        /* NAVIGATION */
+        nav ul{
+            display:flex;
+            gap:20px;
+            flex-wrap:wrap;
+        }
+
+        nav a{
+            color:white;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        nav a:hover,
+        nav a:focus{
+            color:#38bdf8;
+        }
+
+        /* HERO */
+        .hero{
+            min-height:90vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            background:linear-gradient(to right,#dbeafe,#eff6ff);
+            padding:40px 20px;
+        }
+
+        .hero h1{
+            font-size:3rem;
+            margin-bottom:20px;
+            color:#0f172a;
+        }
+
+        .hero p{
+            max-width:700px;
+            margin:auto;
+            margin-bottom:25px;
+            font-size:1.1rem;
+        }
+
+        .btn{
+            display:inline-block;
+            background:#2563eb;
+            color:white;
+            padding:12px 22px;
+            border-radius:6px;
+            transition:0.3s;
+            border:none;
+            cursor:pointer;
+            font-size:1rem;
+        }
+
+        .btn:hover,
+        .btn:focus{
+            background:#1d4ed8;
+        }
+
+        /* SECTIONS */
+        section{
+            padding:80px 0;
+        }
+
+        section h2{
+            text-align:center;
+            margin-bottom:40px;
+            font-size:2rem;
+            color:#0f172a;
+        }
+
+        /* ABOUT */
+        .about-content{
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        /* PROJECTS */
+        .projects-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:25px;
+        }
+
+        .project-card{
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.08);
+            transition:0.3s;
+        }
+
+        .project-card:hover{
+            transform:translateY(-5px);
+        }
+
+        .project-card h3{
+            margin-bottom:15px;
+            color:#2563eb;
+        }
+
+        .project-card p{
+            margin-bottom:20px;
+        }
+
+        /* SKILLS */
+        .skills-list{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+            gap:20px;
+        }
+
+        .skill-item{
+            background:white;
+            padding:20px;
+            text-align:center;
+            border-radius:10px;
+            font-weight:bold;
+            box-shadow:0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        /* CONTACT FORM */
+        form{
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.08);
+            max-width:700px;
+            margin:auto;
+        }
+
+        .form-group{
+            margin-bottom:20px;
+        }
+
+        label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:bold;
+        }
+
+        input,
+        textarea{
+            width:100%;
+            padding:12px;
+            border:1px solid #cbd5e1;
+            border-radius:5px;
+            font-size:1rem;
+        }
+
+        textarea{
+            resize:vertical;
+            min-height:140px;
+        }
+
+        .error{
+            color:red;
+            font-size:0.9rem;
+            margin-top:5px;
+        }
+
+        /* FOOTER */
+        footer{
+            background:#0f172a;
+            color:white;
+            text-align:center;
+            padding:30px 20px;
+        }
+
+        /* MOBILE */
+        @media(max-width:768px){
+
+            .header-content{
+                flex-direction:column;
+                text-align:center;
+            }
+
+            .hero h1{
+                font-size:2.2rem;
+            }
+
+            nav ul{
+                justify-content:center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =========================
+         SKIP LINK
+    ========================== -->
+    <a href="#main-content" class="skip-link">
+        Skip to Main Content
+    </a>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header role="banner">
+
+        <div class="container header-content">
+
+            <div class="logo" aria-label="Portfolio Logo">
+                John Doe
+            </div>
+
+            <!-- NAVIGATION -->
+            <nav role="navigation" aria-label="Main Navigation">
+
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+    <main id="main-content" role="main">
+
+        <!-- HERO -->
+        <section class="hero" id="home" aria-labelledby="hero-title">
+
+            <div class="container">
+
+                <h1 id="hero-title">
+                    Full Stack Developer & Accessibility Enthusiast
+                </h1>
+
+                <p>
+                    I build modern, responsive and fully accessible websites
+                    using semantic HTML5, CSS3 and JavaScript while following
+                    WCAG accessibility standards.
+                </p>
+
+                <a href="#projects"
+                    class="btn"
+                    aria-label="View My Projects">
+                    Explore Projects
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" aria-labelledby="about-heading">
+
+            <div class="container">
+
+                <h2 id="about-heading">
+                    About Me
+                </h2>
+
+                <article class="about-content">
+
+                    <p>
+                        Hello! I'm John Doe, a passionate web developer focused
+                        on creating accessible, user-friendly and SEO-optimized
+                        websites.
+                    </p>
+
+                    <p>
+                        I specialize in semantic HTML5 structure, responsive
+                        layouts, accessibility improvements and modern web
+                        technologies.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" aria-labelledby="projects-heading">
+
+            <div class="container">
+
+                <h2 id="projects-heading">
+                    Featured Projects
+                </h2>
+
+                <div class="projects-grid">
+
+                    <!-- PROJECT 1 -->
+                    <article class="project-card"
+                        aria-labelledby="project1-title">
+
+                        <h3 id="project1-title">
+                            E-Commerce Website
+                        </h3>
+
+                        <p>
+                            Accessible online shopping platform with responsive
+                            design and SEO optimization.
+                        </p>
+
+                        <button class="btn"
+                            aria-label="View E-Commerce Website Project">
+                            View Project
+                        </button>
+
+                    </article>
+
+                    <!-- PROJECT 2 -->
+                    <article class="project-card"
+                        aria-labelledby="project2-title">
+
+                        <h3 id="project2-title">
+                            Portfolio Dashboard
+                        </h3>
+
+                        <p>
+                            Modern dashboard interface with semantic HTML and
+                            keyboard accessibility support.
+                        </p>
+
+                        <button class="btn"
+                            aria-label="View Portfolio Dashboard Project">
+                            View Project
+                        </button>
+
+                    </article>
+
+                    <!-- PROJECT 3 -->
+                    <article class="project-card"
+                        aria-labelledby="project3-title">
+
+                        <h3 id="project3-title">
+                            Blogging Platform
+                        </h3>
+
+                        <p>
+                            High-performance blogging platform optimized for
+                            accessibility and fast page loading.
+                        </p>
+
+                        <button class="btn"
+                            aria-label="View Blogging Platform Project">
+                            View Project
+                        </button>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills" aria-labelledby="skills-heading">
+
+            <div class="container">
+
+                <h2 id="skills-heading">
+                    Skills
+                </h2>
+
+                <div class="skills-list">
+
+                    <div class="skill-item">HTML5</div>
+                    <div class="skill-item">CSS3</div>
+                    <div class="skill-item">JavaScript</div>
+                    <div class="skill-item">Accessibility</div>
+                    <div class="skill-item">Responsive Design</div>
+                    <div class="skill-item">SEO Optimization</div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" aria-labelledby="contact-heading">
+
+            <div class="container">
+
+                <h2 id="contact-heading">
+                    Contact Me
+                </h2>
+
+                <!-- ACCESSIBLE CONTACT FORM -->
+                <form id="contactForm"
+                    aria-label="Contact Form"
+                    novalidate>
+
+                    <!-- NAME -->
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                            aria-required="true"
+                            autocomplete="name">
+
+                        <div class="error" id="nameError"></div>
+
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            aria-required="true"
+                            autocomplete="email">
+
+                        <div class="error" id="emailError"></div>
+
+                    </div>
+
+                    <!-- MESSAGE -->
+                    <div class="form-group">
+
+                        <label for="message">
+                            Message
+                        </label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            required
+                            aria-required="true"></textarea>
+
+                        <div class="error" id="messageError"></div>
+
+                    </div>
+
+                    <!-- BUTTON -->
+                    <button
+                        type="submit"
+                        class="btn"
+                        aria-label="Send Message">
+
+                        Send Message
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+    <footer role="contentinfo">
+
+        <div class="container">
+
+            <p>
+                © 2026 John Doe Portfolio. All Rights Reserved.
+            </p>
+
+            <p>
+                Built with Semantic HTML5, CSS3 and JavaScript.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <!-- =========================
+         JAVASCRIPT START
+    ========================== -->
+    <script>
+
+        // =========================
+        // ACCESSIBLE FORM VALIDATION
+        // =========================
+
+        const form = document.getElementById("contactForm");
+
+        form.addEventListener("submit", function(event){
+
+            event.preventDefault();
+
+            // INPUT VALUES
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const message = document.getElementById("message").value.trim();
+
+            // ERROR ELEMENTS
+            const nameError = document.getElementById("nameError");
+            const emailError = document.getElementById("emailError");
+            const messageError = document.getElementById("messageError");
+
+            // CLEAR PREVIOUS ERRORS
+            nameError.textContent = "";
+            emailError.textContent = "";
+            messageError.textContent = "";
+
+            let isValid = true;
+
+            // NAME VALIDATION
+            if(name === ""){
+                nameError.textContent = "Please enter your full name.";
+                isValid = false;
+            }
+
+            // EMAIL VALIDATION
+            const emailPattern =
+                /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+            if(email === ""){
+                emailError.textContent =
+                    "Please enter your email address.";
+                isValid = false;
+            }
+            else if(!email.match(emailPattern)){
+                emailError.textContent =
+                    "Please enter a valid email.";
+                isValid = false;
+            }
+
+            // MESSAGE VALIDATION
+            if(message === ""){
+                messageError.textContent =
+                    "Please enter your message.";
+                isValid = false;
+            }
+
+            // SUCCESS MESSAGE
+            if(isValid){
+
+                alert(
+                    "Form submitted successfully!"
+                );
+
+                form.reset();
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
